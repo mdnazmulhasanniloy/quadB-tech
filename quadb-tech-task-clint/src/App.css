@@ -1,0 +1,12 @@
+
+
+
+.active{
+  
+  --tw-bg-opacity: 1;
+    background-color: hsl(var(--a) / var(--tw-bg-opacity));
+
+    
+}
+
+
