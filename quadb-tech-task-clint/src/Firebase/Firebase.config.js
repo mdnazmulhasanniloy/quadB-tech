@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDTyItX84__Rdh1ptUI26mXBdrFyXWmQXo",
-  authDomain: "jobtask-jalan-technology.firebaseapp.com",
-  projectId: "jobtask-jalan-technology",
-  storageBucket: "jobtask-jalan-technology.appspot.com",
-  messagingSenderId: "399323749337",
-  appId: "1:399323749337:web:9ef4fd2eb9cbb1306517c8"
+  apiKey: "AIzaSyBMTS5q4D68FSxNoIskdx2xObH8bLPcIvU",
+  authDomain: "quadb-tech-cda74.firebaseapp.com",
+  projectId: "quadb-tech-cda74",
+  storageBucket: "quadb-tech-cda74.appspot.com",
+  messagingSenderId: "319736068556",
+  appId: "1:319736068556:web:33be4ede4413eaf7888569"
 };
 
 // Initialize Firebase

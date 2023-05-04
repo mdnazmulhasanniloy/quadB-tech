@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-const LeftSiteCard = ({data}) => {
-    const {name, image, summary, status, premiered, rating, language, officialSite, schedule, network} = data?.show;
+const LeftSiteCard = ({data, setModalOpen, setBookingData}) => {
+    const {name, image, summary, status, premiered, rating, language, officialSite, schedule, network} = data[0]?.show;
     const [tab, setTab] = useState('info')
     return (
         <div className='w-full mb-20'>
@@ -10,11 +10,16 @@ const LeftSiteCard = ({data}) => {
                     <img src={image?.original} alt={`${name} Image`} className=" max-w-sm h-56" />
                     <div className='lg:mt-2'>
                         <h1 className="text-4xl"><span className='font-bold border-l-4 px-2 border-accent'>{name}</span>{`: Language[${language}] | ${status}`}</h1>
-                        <div className="flex justify-between lg:block">
+                        <div className="">
                             <h4 className='text-xl text-gray-500 mt-4'>{premiered? premiered.slice(0, 4) : ' '}</h4>
-                            <button className='max-w-[240px] bg-black hover:bg-accent px-4 py-2 mt-5 rounded-lg text-white transition-all duration-300'>
+                            <label
+                                    onClick={() => {
+                                        setModalOpen(true) 
+                                        setBookingData(data[0]?.show)
+                                        }}
+                                    htmlFor="Booking-Modal" className=' mt-10 max-w-[240px] bg-black hover:bg-accent px-4 py-2rounded-lg text-white transition-all duration-300'>
                                 Book Now
-                            </button>
+                            </label>
                         </div>
                     </div>
                 </div>

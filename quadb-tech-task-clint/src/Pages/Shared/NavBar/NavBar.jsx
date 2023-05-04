@@ -36,7 +36,12 @@ const NavBar = () => {
                 </li>
 
                 <li className='font-semibold'>
-                
+                { 
+                    user?.uid?
+                    <button onClick={HandelToSignOut} className='hover:text-white hover:bg-accent rounded-md transition-all duration-500'>Sign Out</button>
+                    : <NavLink to='/login' className='hover:text-white hover:bg-accent rounded-md transition-all duration-500'>Login</NavLink>
+                }
+
                 </li>
     </>
     return ( 
@@ -50,7 +55,7 @@ const NavBar = () => {
                         {menuItems}                        
                     </ul>
                     </div>
-                    <Link to={'/'} className="btn btn-ghost normal-case text-xl">
+                    <Link to={'/'} className="btn btn-ghost text-xl uppercase">
                         Online Show
                      </Link>
                 </div>
@@ -69,11 +74,6 @@ const NavBar = () => {
                         }
                          </div>
                     </div>
-                    {
-                    user?.uid?
-                    <button onClick={HandelToSignOut} >Sign Out</button>
-                    : <NavLink to='/login'>Login Account</NavLink>
-                }
                 </div>
             </div>
     );

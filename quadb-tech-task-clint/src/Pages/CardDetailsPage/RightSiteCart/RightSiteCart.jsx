@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AiTwotoneStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
-const RightSiteCart = ({data}) => {
-    const {image, name, language, status, rating, season, id} = data?.show; 
+
+
+const RightSiteCart = ({item}) => {
+	
+    const {image, name, language, status, rating, season, id} = item?.show;
+	
+	
     return (
         <div className="max-w-3xl w-full mx-auto z-10">
 		<div className="flex flex-col">
