@@ -2,21 +2,30 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'; 
 import { toast } from 'react-hot-toast';
-import { useForm } from "react-hook-form";
-import { AuthContext } from '../../Provider/AuthProvider'; 
+import { useForm } from "react-hook-form"; 
+import { AuthContext } from '../../Provider/AuthProvider';
+import useToken from '../../Hooks/useToken';
 import { useTitle } from '../../Hooks/useTitle';
 
 const LoginForm = () => {
     const [loader, setLoader] = useState(false)
-    const { signInUserPassword, googleSignIn } = useContext(AuthContext) 
+    const { signInUserPassword, googleSignIn } = useContext(AuthContext)
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [passwordToggle, setPasswordToggle] = useState(false);
-    const { register, formState: { errors }, handleSubmit } = useForm(); 
+    const { register, formState: { errors }, handleSubmit } = useForm();
+    const [token] = useToken(createdUserEmail);
     const location = useLocation()
     const Navigate = useNavigate()
     useTitle('Login');
 
     const from = location?.state?.from || '/';
- 
+
+    if (token) {
+        Navigate(from, { replace: true })
+        toast.success('Login success full');
+        setLoader(false);
+        
+    }
 
 
     const onSubmit = (data) => {
@@ -26,9 +35,8 @@ const LoginForm = () => {
         signInUserPassword(data.email, data.password)
             .then((result) => {
                 const user = result.user;
-                Navigate(from, { replace: true })
-                toast.success('Login success full');
-                setLoader(false);
+                setCreatedUserEmail(user.email)
+                setLoader(false)
 
 
 
@@ -53,8 +61,7 @@ const LoginForm = () => {
         googleSignIn()
             .then((result) => {
                 const user = result.user;
-                Navigate(from, { replace: true })
-                toast.success('Login success full');
+                setCreatedUserEmail(user.email)
                 setLoader(false);
 
             }).catch((error) => {

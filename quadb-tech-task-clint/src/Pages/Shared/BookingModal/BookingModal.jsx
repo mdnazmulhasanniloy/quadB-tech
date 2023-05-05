@@ -23,7 +23,7 @@ const BookingModal = ({ setModalOpen, bookingData }) => {
 
         }
 
-        fetch('https://seaside-hotel-sarver-mdnazmulhasanniloy.vercel.app/booking', {
+        fetch('https://quadb-tech-server.vercel.app/booking', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

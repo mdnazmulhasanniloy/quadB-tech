@@ -37,13 +37,13 @@ const RightSiteCart = ({item}) => {
 							</div>
                                 <h1 className='text-md ml-4 text-gray-400'>
 									{rating? rating?.average : '0'}
-									<AiTwotoneStar className='text-[15px] '/>
-									
 								</h1>
 							
 							</div>
 							<div className="flex pt-2  text-sm text-gray-500">
-								<Link to={`/cardDetails/${id}`}  className="flex-no-shrink bg-accent hover:bg-accent px-5 ml-4 py-2 text-xs shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-accent hover:border-accent text-white rounded-full transition ease-in duration-300">FOLLOW</Link>
+								<Link to={`/cardDetails/${id}`}  className="flex-no-shrink bg-accent hover:bg-accent px-5 ml-4 py-2 text-xs shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-accent hover:border-accent text-white rounded-full transition ease-in duration-300">
+									See Details
+								</Link>
 							</div>
 						</div>
 					</div>
