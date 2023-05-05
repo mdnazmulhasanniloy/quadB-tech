@@ -1,23 +1,34 @@
-import React, { useContext, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useContext, useState } from 'react'; 
+import { useForm } from 'react-hook-form'; 
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { toast } from 'react-hot-toast'; 
-import { AuthContext } from '../../../Provider/AuthProvider';
-import { useTitle } from '../../../Hooks/useTitle';
+import { AuthContext } from '../../Provider/AuthProvider';
+import { useTitle } from './../../Hooks/useTitle';
+import useToken from './../../Hooks/useToken';
+import { toast } from 'react-hot-toast';
 
 
 const Register = () => {
     const { createUser, updateUserProfile, googleSignIn } = useContext(AuthContext)
     const [loader, setLoader] = useState(false)
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const [createdUserEmail, setCreatedUserEmail] = useState('')
+    const [token] = useToken(createdUserEmail);
     const Navigate = useNavigate();
     const location = useLocation();
     const [passwordToggle, setPasswordToggle] = useState(false)
+    const [inputImg, setInputImg]=useState(null)
     useTitle('Register')
 
 
     const from = location?.state?.from || '/';
+    if (token) {
+        Navigate(from, { replace: true })
+        setLoader(false)
+        toast.success('Register success full');
+
+    }
+
 
     const onSubmit = (data) => {
         setLoader(true)
@@ -48,9 +59,9 @@ const Register = () => {
                             // update user profile
                             updateUserProfile(userInfo)
                                 .then(() => {
-                                    Navigate(from, { replace: true })
-                                    toast.success('Register success full');
-                                    setLoader(false)
+                                    saveUser(data.name, data.email, imgData.data.url);
+
+
                                 })
                                 .catch(err => {
                                     toast.error(err.message)
@@ -58,6 +69,7 @@ const Register = () => {
                                 });
 
                         }).catch((error) => {
+
                             const errorMessage = error.message;
                             toast.error(errorMessage)
                             setLoader(false)
@@ -81,7 +93,8 @@ const Register = () => {
         googleSignIn()
             .then((result) => {
                 const user = result.user;
-                toast.success('Register success full')
+                saveUser(user.displayName, user.email, user.photoURL);
+                setCreatedUserEmail(user.email);
                 setLoader(false);
 
 
@@ -96,6 +109,38 @@ const Register = () => {
 
 
 
+
+
+
+    //save user in database
+
+    const saveUser = (name, email, img) => {
+        const users = {
+            name,
+            email,
+            role:'Buyers',
+            img
+        }
+        fetch(`https://quadb-tech-server.vercel.app/users`, {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(users)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setCreatedUserEmail(email);
+                setLoader(false)
+            })
+            .catch(error => toast.error(error.message))
+    }
+
+
+    const handelChange = e =>{
+        const image = e.target.value;
+        setInputImg(image)
+        console.log(image)
+
+    }
 
     return (
         <div className='mt-5'>
@@ -160,9 +205,9 @@ const Register = () => {
                                 : "flex flex-col items-center justify-center w-full border-2 border-accent border-dashed rounded-lg cursor-pointer bg-gray-50 group"}>
                                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
                                     <svg aria-hidden="true" className="w-10 h-10 mb-3 text-accent group-hover:scale-110 transition-all duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                                    <p className="mb-2 text-sm text-accent group-hover:scale-110 transition-all duration-700"><span className="font-semibold">Click to upload</span> User Images</p>
+                                    <p className="mb-2 text-sm text-accent group-hover:scale-110 transition-all duration-700">{inputImg? 'Image Uploading' : <><span className="font-semibold">Click to upload</span> User Images</>}</p>
                                 </div>
-                                <input id="dropzone-file" {...register("img", {
+                                <input id="dropzone-file" name='image' onInput={handelChange} {...register("img", {
                                     required: "img is required",
                                 })} type="file" className="hidden" accept=".png, .jpg, .jpeg" />
                             </label>

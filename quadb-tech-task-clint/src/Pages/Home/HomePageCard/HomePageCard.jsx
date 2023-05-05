@@ -6,8 +6,7 @@ import { Link } from 'react-router-dom';
 
 const HomePageCard = ({currentItem}) => {
     const {name, image, summary, rating, language, id} = currentItem?.show
-    const handelTOaddCard =(currentItem)=>{ 
-    }
+    
     
     return (
         <div className='bg-white shadow-2xl min-h-[500px]  pb-10'>

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Tabs, TabsHeader, TabsBody, Tab, TabPanel} from "@material-tailwind/react";
-import Register from './../Home/Register/Register';
+import { Tabs, TabsHeader, TabsBody, Tab, TabPanel} from "@material-tailwind/react"; 
 import LoginForm from './LoginForm';
+import Register from '../Register/Register';
 
 const Login = () => {
 
@@ -14,7 +14,7 @@ const Login = () => {
         {
           label: "REGISTER",
           value: "register",
-          desc: <Register />,
+          desc: <Register />
         }
     ];
 
@@ -26,8 +26,8 @@ const Login = () => {
                     <div className="card-body">
                     <div className="w-11/12 mx-auto">
                     {/* tabs */}
-                    <Tabs id="custom-animation" className='mt-10' value="login">
-                        <TabsHeader>
+                    <Tabs className='mt-10' value="login">
+                        <TabsHeader className='bg-transparent' indicatorProps={{ className: "bg-blue-500/10 shadow-none text-blue-500", }}>
                             {data.map(({ label, value }) => (
                             <Tab key={value} value={value} className="text-accent">
                                 {label}

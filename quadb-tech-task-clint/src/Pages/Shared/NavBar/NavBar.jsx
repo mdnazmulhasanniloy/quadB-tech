@@ -3,14 +3,14 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FaUserTie } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../Provider/AuthProvider'; 
+import useAdmin from '../../../Hooks/useAdmin';
 
 
 
 const NavBar = () => {
-    const {user, signOutUser} = useContext(AuthContext);
-    const [admin, setAdmin] = useState();
-    const Navigate = useNavigate();
-    // const [isAdmin, isAdminLoading] = useAdmin(user?.email);
+    const {user, signOutUser} = useContext(AuthContext); 
+  const [isAdmin, isAdminLoading] = useAdmin(user?.email) 
+  const Navigate = useNavigate()
     
 
     //user logout
@@ -23,6 +23,8 @@ const NavBar = () => {
         })
         .catch(error => toast.error(error))
     }
+
+
     //nav items
     const menuItems = <>
                 <li className='font-semibold'>
@@ -43,6 +45,22 @@ const NavBar = () => {
                 }
 
                 </li>
+                {
+                    user?.email && isAdmin &&
+                    <li>
+                        <NavLink to='allUsers' className='hover:text-white hover:bg-accent rounded-md transition-all duration-500'>All Users</NavLink>
+                    </li>
+                }
+
+                {
+                    user?.email &&
+                    <li> 
+                        <NavLink to='/myBooking' className='hover:text-white hover:bg-accent rounded-md transition-all duration-500'>
+                        My Bookings</NavLink> 
+                    </li>
+                }
+
+                
     </>
     return ( 
         <div className="navbar w-100 h-20 mb-12 bg-base-100 shadow-lg px-10">

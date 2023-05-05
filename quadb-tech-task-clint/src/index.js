@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { QueryClient, QueryClientProvider, } from '@tanstack/react-query';
 import AuthProvider from './Provider/AuthProvider';
-
+import { ThemeProvider } from "@material-tailwind/react";
 
 
 const queryClient = new QueryClient();
@@ -14,7 +14,9 @@ root.render(
   <QueryClientProvider client={queryClient}>
   <React.StrictMode>
     <AuthProvider>
+    <ThemeProvider>
           <App />
+    </ThemeProvider>
     </AuthProvider>
   </React.StrictMode>
   </QueryClientProvider>

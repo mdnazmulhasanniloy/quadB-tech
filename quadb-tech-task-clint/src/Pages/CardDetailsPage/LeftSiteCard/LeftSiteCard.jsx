@@ -9,15 +9,15 @@ const LeftSiteCard = ({data, setModalOpen, setBookingData}) => {
                 <div className="flex flex-col lg:flex-row justify-center max-w[80rem] gap-4 p-4">
                     <img src={image?.original} alt={`${name} Image`} className=" max-w-sm h-56" />
                     <div className='lg:mt-2'>
-                        <h1 className="text-4xl"><span className='font-bold border-l-4 px-2 border-accent'>{name}</span>{`: Language[${language}] | ${status}`}</h1>
-                        <div className="">
+                        <h1 className="text-4xl"><span className='font-bold cursor-pointer border-l-4 px-2 border-accent'>{name}</span>{`: Language[${language}] | ${status}`}</h1>
+                        <div className="flex justify-between">
                             <h4 className='text-xl text-gray-500 mt-4'>{premiered? premiered.slice(0, 4) : ' '}</h4>
                             <label
                                     onClick={() => {
                                         setModalOpen(true) 
                                         setBookingData(data[0]?.show)
                                         }}
-                                    htmlFor="Booking-Modal" className=' mt-10 max-w-[240px] bg-black hover:bg-accent px-4 py-2rounded-lg text-white transition-all duration-300'>
+                                    htmlFor="Booking-Modal" className='mt-5 max-w-[240px] bg-black hover:bg-accent px-4 py-2 rounded-lg text-white transition-all duration-300'>
                                 Book Now
                             </label>
                         </div>
